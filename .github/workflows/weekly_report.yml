@@ -1,0 +1,38 @@
+# .github/workflows/weekly_report.yml
+name: Weekly Marketing Report
+
+on:
+  schedule:
+    # Run every Monday at 10:00 PM IST (which is 16:30 UTC)
+    - cron: '30 16 * * MON'
+  workflow_dispatch:         # Allows manual run (to test it instantly)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run report script
+      run: python generate_weekly_report.py
+      env:
+        # This references the secret you will set up in GitHub settings
+        OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
+    - name: Upload Excel report
+      uses: actions/upload-artifact@v4
+      with:
+        name: weekly-report
+        path: Weekly_Report_With_AI_Suggestions.xlsx
