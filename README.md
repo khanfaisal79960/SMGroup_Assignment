@@ -10,10 +10,6 @@ It is scheduled to run automatically using **GitHub Actions**, making the workfl
 
 ---
 
-📌 Live Demo: [Open Link](https://influencer-insights.streamlit.app)
-
----
-
 ## 🔁 Project Workflow
 
 ![Workflow](./Workflow.png)
